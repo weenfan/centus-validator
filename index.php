@@ -12,7 +12,6 @@ if(isset($_GET['a']))
 	unset($d['_links']);
 	unset($d['id']);
 	unset($d['account_id']);
-	unset($d['sequence']);
 	unset($d['subentry_count']);
 	unset($d['inflation_destination']);
 	unset($d['home_domain']);
@@ -88,8 +87,14 @@ if(isset($_GET['a']))
 			if($k=="w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]="valid";
 		}
 	}
-	if(!isset($s["w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM"]))$s['w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM']=$missing;
-	if(!isset($s["w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U"]))$s['w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U']=$missing;
+	if($v2==2){
+		if(!isset($s["w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM"]))$s['w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM']=$missing;
+		if(!isset($s["w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U"]))$s['w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U']=$missing;
+	}
+	else if($v2==20){
+		if(!isset($s["w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM"]))$s['w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM']=$missing;
+		if(!isset($s["w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U"]))$s['w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U']=$missing;
+	}
 	foreach($t as $k => $v)
 	{
 		if($v==2&&$v2==2)$t[$k]="valid value of 2";
@@ -110,6 +115,9 @@ if(isset($_GET['a']))
 	array_dump($s);
 	echo 'Centus Team Assets';
 	array_dump($ca);
+	echo 'Sequence';
+	echo '<hr>';
+	echo $d['sequence'];
 }
 	?>
 	<form method=get action="/centus-address/">
