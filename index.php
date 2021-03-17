@@ -72,7 +72,7 @@ if(isset($_GET['a']))
 			$ka=explode("-",$k);
 			$code=$ka[0];
 			$issuer=$ka[1];
-			if($code=="CENTUS")$ca[$k] .= ' - 5%: '.(floor($bf[$k]*0.05*pow(10,7))/pow(10,7));
+			if($code=="CENTUS"||$code=="BINCOME"||$code=="USD")$ca[$k] .= ' - 5%: '.(floor($bf[$k]*0.05*pow(10,7))/pow(10,7));
 			else $ca[$k] .= ' - '.(floor($bf[$k]*1*pow(10,7))/pow(10,7));
 		}
 	}
