@@ -22,6 +22,8 @@ if(isset($_GET['a']))
 	unset($d['paging_token']);
 	unset($d['flags']);
 	unset($d['data']);
+	$bal=$d['balances'];
+	$bf=array();
 	foreach($d['balances'] as $k => $v)
 	{
 		unset($d['balances'][$k]['balance']);
@@ -47,7 +49,32 @@ if(isset($_GET['a']))
 	unset($d['balances']);
 	foreach($ca as $k => $v)
 	{
-		if(in_array($k,$b))$ca[$k]='<span style="color:#0f0;">found</span>';
+		if(in_array($k,$b))
+		{
+			$ca[$k]='<span style="color:#0f0;">found</span>';
+			$ka=explode("-",$k);
+			$code=$ka[0];
+			$issuer=$ka[1];
+			$bf[$k]=0;
+			foreach($bal as $kk => $vv)
+			{
+				if($vv['asset_code']==$code&&$vv['asset_issuer']==$issuer)
+				{
+					$bf[$k]=$vv['balance'];
+				}
+			}
+		}
+	}
+	foreach($bf as $k => $v)
+	{
+		if($bf[$k]>0)
+		{
+			$ka=explode("-",$k);
+			$code=$ka[0];
+			$issuer=$ka[1];
+			if($code=="CENTUS")$ca[$k] .= ' - 5%: '.(floor($bf[$k]*0.05*pow(10,7))/pow(10,7));
+			else $ca[$k] .= ' - '.(floor($bf[$k]*1*pow(10,7))/pow(10,7));
+		}
 	}
 	$t=$d['thresholds'];
 	$s=$d['signers'];
