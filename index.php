@@ -1,4 +1,4 @@
-<pre><?php
+<style>html{color:white;background:black;}</style><pre><?php
 
 $ca='{"balances":[{"asset_code":"BILLEX","asset_issuer":"GBILKAL6TH56OTUIWRVUCUGTV22NHLH5QFWBHCUPVHBX6B5FVJYSSIBD"},{"asset_code":"BILLEX1","asset_issuer":"GDEDBZL37MBCR4N63E2OQ4SPN2Z6R7QPIBQBUVWHM2FIN5I7MEJ5C5EF"},{"asset_code":"BILLEXC","asset_issuer":"GA6C4G2JKL5JBUMXTZK2TIIE2XN7DGAO3ZE3TZWMJ4OMBOCTZBW6S2IX"},{"asset_code":"BINC","asset_issuer":"GDXYOVUNAH4KGTOUPPBHRJLANMMRKBOFR5LJCFKAG3U5AAXPA424WOWQ"},{"asset_code":"BINCOME","asset_issuer":"GB47S227MZ37TLYO2RD5EH4IT2DVWH7RRC67Z2VAKMV4TKFDF4GWYBLY"},{"asset_code":"BONUS","asset_issuer":"GCP7IKROLJVDTQC34CNZGL6OAAWJ62H5MO3IST7CTOEYK7GWRR4CHDUH"},{"asset_code":"CENTUS","asset_issuer":"GD43GJWAV4WVMW5O4LL27FFFXF5SFNQY7NYPHOMHFHFNYAI2W6OTYEMU"},{"asset_code":"CENTUSX","asset_issuer":"GD7I4VIGF2LJEK6XKZDFLWRT6NFVIXN2CGLVSXEPNWJWTN4QRGX4226Z"},{"asset_code":"DBC","asset_issuer":"GDGHJL32AYPBNKLJQXWEASJVXBDWS2JO7LICIMGS4JVIPXH6KGO5SQBS"},{"asset_code":"DEPO","asset_issuer":"GC7J3ZOQ4GG4QKS57JQOQQWAP636GCO6JFL5HTJRVNRWILAAM6BDSKLX"},{"asset_code":"USD","asset_issuer":"GAQTQSTVA6QWZSWTE4CVZLU6XDP3H3DVEXIIG2XMZGMLY3XCY5GZMNMI"}]}';
 $ca=json_decode($ca,true);
@@ -41,13 +41,13 @@ if(isset($_GET['a']))
 	$ca=array_flip($ca);
 	foreach($ca as $k => $v)
 	{
-		$ca[$k]="not found";
+		$ca[$k]='<span style="color:red;">not found</span>';
 	}
 	$b=$d['balances'];
 	unset($d['balances']);
 	foreach($ca as $k => $v)
 	{
-		if(in_array($k,$b))$ca[$k]="found";
+		if(in_array($k,$b))$ca[$k]='<span style="color:#0f0;">found</span>';
 	}
 	$t=$d['thresholds'];
 	$s=$d['signers'];
@@ -56,7 +56,7 @@ if(isset($_GET['a']))
 		$s[$k]='w'.$s[$k]['weight'].' '.$s[$k]['key'];
 	}
 	$s=array_flip($s);
-	$message="invalid";$missing="missing";
+	$message="invalid";$missing='<span style="color:red;">missing</span>';
 	if($t['high_threshold']==1){$message="not_multisig";$missing="not_multisig";}
 	if($t['high_threshold']==0){$message="not_multisig";$missing="not_multisig";}
 	$v2=$t['high_threshold'];
@@ -64,27 +64,28 @@ if(isset($_GET['a']))
 	{
 		$s[$k]=$message;
 	}
+	$valid='<span style="color:#0f0;">valid</span>';
 	foreach($s as $k => $v)
 	{
 		if($v2==2)
 		{
-			if($k=="w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]="valid";
-			if($k=="w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]="valid";
-			if($k=="w1 ".$a)$s[$k]="valid";
+			if($k=="w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]=$valid;
+			if($k=="w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]=$valid;
+			if($k=="w1 ".$a)$s[$k]=$valid;
 		}
 		else if($v2==20)
 		{
-			if($k=="w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]="valid";
-			if($k=="w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]="valid";
-			if($k=="w10 ".$a)$s[$k]="valid";			
+			if($k=="w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]=$valid;
+			if($k=="w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]=$valid;
+			if($k=="w10 ".$a)$s[$k]=$valid;			
 		}
 		else
 		{
-			if($k=="w1 ".$a)$s[$k]="valid";			
-			if($k=="w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]="valid";
-			if($k=="w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]="valid";
-			if($k=="w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]="valid";
-			if($k=="w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]="valid";
+			if($k=="w1 ".$a)$s[$k]=$valid;			
+			if($k=="w1 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]=$valid;
+			if($k=="w1 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]=$valid;
+			if($k=="w10 GC4DQQE7PZ62GYJDUHV5YD5Z4WESGRILL74TGCD7UYVB4SMFP4BW75EM")$s[$k]=$valid;
+			if($k=="w10 GCH2XRYQVJQ24HWIBDZ3QSBQD4GWI6MRVOBZIVOVDSJSYYL5P4NERX4U")$s[$k]=$valid;
 		}
 	}
 	if($v2==2){
@@ -101,8 +102,8 @@ if(isset($_GET['a']))
 	}
 	foreach($t as $k => $v)
 	{
-		if($v==2&&$v2==2)$t[$k]="valid value of 2";
-		else if($v==20&&$v2==20)$t[$k]="valid value of 20";
+		if($v==2&&$v2==2)$t[$k]='<span style="color:#0f0;">valid value of 2</span>';
+		else if($v==20&&$v2==20)$t[$k]='<span style="color:#0f0;">valid value of 20</span>';
 		else $t[$k]=$message." value of ".$v;
 	}
 	function array_dump($data){
