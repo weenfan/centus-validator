@@ -151,9 +151,9 @@ if(isset($_GET['a']))
 	echo '<hr>';
 	echo $d['sequence'];
 }
-	?>
-	<form method=get action="/centus-address/">
-	<label>stellar address:</label><input type=text name=a>
-	<input type=submit>
-	</form>
-	<?php
+
+$action=$_SERVER['PHP_SELF'];
+?><form method=get action="<?php echo $action; ?>">
+<label>stellar address:</label><input type=text name=a>
+<input type=submit>
+</form><?php
