@@ -84,8 +84,8 @@ if(isset($_GET['a']))
 	}
 	$s=array_flip($s);
 	$message="invalid";$missing='<span style="color:red;">missing</span>';
-	if($t['high_threshold']==1){$message="not_multisig";$missing="not_multisig";}
-	if($t['high_threshold']==0){$message="not_multisig";$missing="not_multisig";}
+	if($t['high_threshold']==1){$message='<span style="color:yellow;">not_multisig</span>';$missing='<span style="color:yellow;">not_multisig</span>';}
+	if($t['high_threshold']==0){$message='<span style="color:yellow;">not_multisig</span>';$missing='<span style="color:yellow;">not_multisig</span>';}
 	$v2=$t['high_threshold'];
 	foreach($s as $k => $v)
 	{
